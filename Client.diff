@@ -1,0 +1,21 @@
+170c170,172
+< 				let key = this._cryptoSuite.generateEphemeralKey();
+---
+> 				let cryptoSuite = sdkUtils.newCryptoSuite({software: true})
+> 				//let key = this._cryptoSuite.generateEphemeralKey();
+> 				let key = cryptoSuite.generateEphemeralKey();
+1345a1348
+> 						let cryptoContent = { signedCertPEM: enrollment.certificate } 						
+1346a1350,1354
+> 						if (enrollment.key.constructor && enrollment.key.constructor.name == 'PKCS11_ECDSA_KEY') {
+> 							cryptoContent.privateKeyObj = enrollment.key;
+> 						} else {
+> 							cryptoContent.privateKeyPEM = enrollment.key.toBytes();
+> 						}
+1351,1354c1359
+< 								cryptoContent: {
+< 									privateKeyPEM: enrollment.key.toBytes(),
+< 									signedCertPEM: enrollment.certificate
+< 								}
+---
+> 								cryptoContent: cryptoContent
